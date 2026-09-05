@@ -1,6 +1,6 @@
-package src.l3;
+package src.l2.e0;
 
-public class Miliardo {
+public class E0 {
     public static void main(String[] args) {
 
     }

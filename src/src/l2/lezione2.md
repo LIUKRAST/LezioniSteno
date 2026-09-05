@@ -99,6 +99,7 @@ int i = 1;
 while(i < 1_000_000_000) {
     i = i * 2;
 }
+System.out.println(i);
 ```
 
 Vediamo cosa succede qui:
@@ -109,6 +110,49 @@ Vediamo cosa succede qui:
 5. Torna al while, 2 < 1 miliardo? (si)
 6. Passa a `i = i * 2` $2 \rightarrow 4$
 7. Torna al while, 4 < 1 miliardo? (si)
+
 ...
 
-Ad un certo punto, il valore i supererà il miliardo, 
+Ad un certo punto, il valore i supererà il miliardo, e quindi il while si romperà.
+Il codice salterà quindi alla prima operazione dopo, ovvero il system.out.
+
+Per quanto raggiungere un miliardo sembra altissimo, bastano 30 cicli per arrivare al primo numero maggiore o uguale ad un miliardo, ovvero:
+1073741824
+
+Ovviamente avere milioni di cicli (soprattutto se innestati) produce un carico pesantissimo sulla CPU, e per questo è uno dei punti dove più si va ad ottimizzare. Ricorda che ora stiamo facendo moltiplicazioni, ma leggere dalla RAM o addirittura dall'SSD migliaia di volte richiede tanto, tanto tempo.
+
+Puoi andarti a divertire nei file [Crash](Crash.java), [NoCrash](NoCrash.java) e [Miliardo](Miliardo.java) per vedere quanto lontano può spingersi la tua RAM salvando ogni volta memoria che il codice non può svuotare
+
+Ho anche fatto un ultimo esperimento [CrashStack](CrashStack.java) che va a riempire la memoria stack invece dell'heap (tranquillo vedremo poi cosa sono) e usa delle funzioni ricorsive. Ma hey! Vedrai le funzioni nella prossima lezione!
+
+## Cicli innestati
+
+è possibile innestare dei cicli fra di loro
+
+```java
+for(int x = -10; x < 10; x++) { // Ciclo A
+    for(int y = -10; y < 10; y++) { // Ciclo B
+        for(int z = -10; z < 10; z++) { // Ciclo C
+            System.out.println("Coordinata " + x + "; " + y + "; " + z + " ispezionata");
+        }
+    }
+}
+```
+
+Il comportamento di questo ciclo è molto complesso:
+1. Inizia il ciclo A, x = -10;
+2. Inizia il ciclo B, y = -10;
+3. Inizia il ciclo C, z = -10;
+4. Il ciclo C prosegue fino ad arrivare a 9, poi finisce
+5. y aumenta di uno e ricomincia il ciclo C, z = -10;
+6. Il ciclo C prosegue fino ad arrivare a 9, poi finisce
+
+...
+7. Il ciclo B finisce arrivando a 9, quindi il ciclo A aumenta x di 1
+8. Ricomincia il ciclo B
+9. Ricomincia il ciclo C
+
+...
+10. Finisce il ciclo A quando x arriva a 9
+
+Puoi vedere il funzionamento del programma in [Coordinate](Coordinate.java)
