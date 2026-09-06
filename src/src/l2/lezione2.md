@@ -156,3 +156,25 @@ Il comportamento di questo ciclo è molto complesso:
 10. Finisce il ciclo A quando x arriva a 9
 
 Puoi vedere il funzionamento del programma in [Coordinate](Coordinate.java)
+
+## Rottura e continuamento dei loop
+Puoi decidere di rompere forzatamente il loop tu internamente
+
+```java
+while(condizione) {
+    if(condizione1) {
+        break; // ------------*
+    } //                      |
+} //                          |
+// <--------------------------*
+```
+
+Puoi anche decidere di saltare forzatamente alla prossima iterazione
+
+```java
+while(condizione) { //<--------*
+    if(condizione1) { //       |
+        continue; // ----------*
+    }
+}
+```
