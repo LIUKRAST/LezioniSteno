@@ -2,12 +2,12 @@ package l3.e2;
 
 public class E2Tester {
     public static void main(String[] args) {
-        test(3, 0);
-        test(11, 0);
-        test(12, 0);
-        test(26, 0);
-        test(30, 0);
-        test(40, 0);
+        test(3, 2);
+        test(11, 89);
+        test(12, 144);
+        test(26, 121393);
+        test(30, 832040);
+        test(40, 102334155);
     }
 
     public static void test(int n, int r) {
